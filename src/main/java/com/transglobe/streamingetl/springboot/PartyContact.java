@@ -20,6 +20,18 @@ public class PartyContact {
 	
 	private String address1;
 
+	public PartyContact(Integer roleType, Long listId, Long policyId, String name, String certiCode, String mobileTel
+			, String email, Long addressId, String address1) {
+		this.roleType = roleType;
+		this.listId = listId;
+		this.policyId = policyId;
+		this.name = name;
+		this.certiCode = certiCode;
+		this.mobileTel = mobileTel;
+		this.email = email;
+		this.addressId = addressId;
+		this.address1 = address1;
+	}
 	public Integer getRoleType() {
 		return roleType;
 	}
