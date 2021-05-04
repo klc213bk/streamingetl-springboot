@@ -18,21 +18,21 @@ public class PartyContactController {
 	@Autowired
 	private PartyContactService partyContactService;
 
-	@GetMapping("/search")
+	@GetMapping(path = "/search", params = { "email" })
 	@ResponseBody
 	public List<PartyContact> findPartyContacts(@RequestParam("email") String email){
 		return partyContactService.getPartyContactsByEmail(email);
 	}
 	
-	@GetMapping("/search")
+	@GetMapping(path = "/search", params = { "mobileTel" })
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByMobileTel(@RequestParam("mobileTel") String mobileTel){
+	public List<PartyContact> findPartyContactsByMobileTel(String mobileTel){
 		return partyContactService.getPartyContactsByMobileTel(mobileTel);
 	}
 	
-	@GetMapping("/search")
+	@GetMapping(path = "/search", params = { "address" })
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByAddress(@RequestParam("address") String address){
+	public List<PartyContact> findPartyContactsByAddress(String address){
 		return partyContactService.getPartyContactsByAddress(address);
 	}
 

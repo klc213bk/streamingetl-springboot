@@ -53,7 +53,7 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
         mapSqlParameterSource.addValue("address", "%" + address + "%");
 
         return namedParameterJdbcTemplate.query(
-                "select * from T_PARTY_CONTACT where adress like :address",
+                "select * from T_PARTY_CONTACT where ADDRESS_1 like :address",
                 mapSqlParameterSource,
                 (rs, rowNum) ->
                 new PartyContact(
