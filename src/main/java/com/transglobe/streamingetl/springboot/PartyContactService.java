@@ -2,6 +2,8 @@ package com.transglobe.streamingetl.springboot;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +13,8 @@ import com.transglobe.streamingetl.springboot.repository.PartyContactRepository;
 
 @Service
 public class PartyContactService {
-
+	static final Logger logger = LoggerFactory.getLogger(PartyContactService.class);
+	
 	@Autowired
     JdbcTemplate jdbcTemplate;
 	
@@ -21,14 +24,17 @@ public class PartyContactService {
     private PartyContactRepository partyContactRepository;
 	
 	public List<PartyContact> getPartyContactsByEmail(String email){
+		logger.info(">>>>PartyContactService, search by email={}", email);
 		return partyContactRepository.findByEmail(email);
 	}
 	
 	public List<PartyContact> getPartyContactsByAddress(String address){
+		logger.info(">>>>PartyContactService, search by address={}", address);
 		return partyContactRepository.findByAddress(address);
 	}
 	
 	public List<PartyContact> getPartyContactsByMobileTel(String mobileTel){
+		logger.info(">>>>PartyContactService, search by mobileTel={}", mobileTel);
 		return partyContactRepository.findByMobileTel(mobileTel);
 	}
 	
