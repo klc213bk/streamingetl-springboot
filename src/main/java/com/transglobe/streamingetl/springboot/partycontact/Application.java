@@ -1,4 +1,4 @@
-package com.transglobe.streamingetl.springboot;
+package com.transglobe.streamingetl.springboot.partycontact;
 
 
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.transglobe.streamingetl.springboot;
+package com.transglobe.streamingetl.springboot.partycontact.controller;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.transglobe.streamingetl.springboot.partycontact.model.PartyContact;
+import com.transglobe.streamingetl.springboot.partycontact.service.PartyContactService;
+
 
 @RestController
 @RequestMapping("/partycontact/v1.0")
@@ -25,13 +28,19 @@ public class PartyContactController {
 	@GetMapping(path = "/search", params = { "email" })
 	@ResponseBody
 	public List<PartyContact> findPartyContacts(@RequestParam("email") String email){
-		return partyContactService.getPartyContactsByEmail(email);
+		logger.info(">>>>PartyContactController, search by email={}", email);
+		List<PartyContact> contactList = partyContactService.getPartyContactsByEmail(email);
+		logger.info(">>>>contactList, size={}", contactList.size());
+		return contactList;
 	}
 	
 	@GetMapping(path = "/search", params = { "mobileTel" })
 	@ResponseBody
 	public List<PartyContact> findPartyContactsByMobileTel(String mobileTel){
-		return partyContactService.getPartyContactsByMobileTel(mobileTel);
+		logger.info(">>>>PartyContactController, search by mobileTel={}", mobileTel);
+		List<PartyContact> contactList = partyContactService.getPartyContactsByMobileTel(mobileTel);
+		logger.info(">>>>contactList, size={}", contactList.size());
+		return contactList;
 	}
 	
 	@GetMapping(path = "/search", params = { "address" })

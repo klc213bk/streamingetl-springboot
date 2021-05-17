@@ -1,4 +1,4 @@
-package com.transglobe.streamingetl.springboot;
+package com.transglobe.streamingetl.springboot.partycontact.service;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.transglobe.streamingetl.springboot.repository.PartyContactRepository;
+import com.transglobe.streamingetl.springboot.partycontact.model.PartyContact;
+import com.transglobe.streamingetl.springboot.partycontact.repository.PartyContactRepository;
 
 @Service
 public class PartyContactService {

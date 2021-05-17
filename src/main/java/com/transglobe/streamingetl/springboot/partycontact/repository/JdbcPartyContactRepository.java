@@ -1,4 +1,4 @@
-package com.transglobe.streamingetl.springboot.repository;
+package com.transglobe.streamingetl.springboot.partycontact.repository;
 
 import java.util.List;
 
@@ -8,7 +8,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.transglobe.streamingetl.springboot.PartyContact;
+import com.transglobe.streamingetl.springboot.partycontact.model.PartyContact;
+
 
 @Repository
 public class JdbcPartyContactRepository implements PartyContactRepository {

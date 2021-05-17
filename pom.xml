@@ -8,7 +8,7 @@
 		<!-- <version>2.1.3.RELEASE</version> -->
 	</parent>
 	<groupId>com.transglobe.streamingetl.springboot</groupId>
-	<artifactId>streamingetl-springboot</artifactId>
+	<artifactId>springboot-partycontact</artifactId>
 	<version>1.0</version>
 
 	<properties>

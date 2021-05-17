@@ -1,4 +1,4 @@
-package com.transglobe.streamingetl.springboot;
+package com.transglobe.streamingetl.springboot.partycontact.model;
 
 public class PartyContact {
 	
