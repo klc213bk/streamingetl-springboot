@@ -12,4 +12,10 @@ public interface PartyContactRepository {
     
     List<PartyContact> findByAddress(String address);
     
+    List<PartyContact> findByListId(Long listId);
+    
+    List<PartyContact> findByCertiCode(String certiCode);
+    
+    List<PartyContact> findByAddressId(Long addressId);
+    
 }

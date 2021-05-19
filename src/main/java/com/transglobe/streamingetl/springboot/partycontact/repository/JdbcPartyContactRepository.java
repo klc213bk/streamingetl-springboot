@@ -66,5 +66,45 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
         );
 	}
 
+	@Override
+	public List<PartyContact> findByListId(Long listId) {
+		return jdbcTemplate.query(
+                "select * from T_PARTY_CONTACT where LIST_ID=" + listId,
+                (rs, rowNum) ->
+                        new PartyContact(
+                        		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
+                        		rs.getString("NAME"), rs.getString("CERTI_CODE"), rs.getString("MOBILE_TEL")
+                        				, rs.getString("EMAIL"), rs.getLong("ADDRESS_ID"), rs.getString("ADDRESS_1")
 
+                        )
+        );
+	}
+
+	@Override
+	public List<PartyContact> findByCertiCode(String certiCode) {
+		return jdbcTemplate.query(
+                "select * from T_PARTY_CONTACT where CERTI_CODE='" + certiCode + "'",
+                (rs, rowNum) ->
+                        new PartyContact(
+                        		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
+                        		rs.getString("NAME"), rs.getString("CERTI_CODE"), rs.getString("MOBILE_TEL")
+                        				, rs.getString("EMAIL"), rs.getLong("ADDRESS_ID"), rs.getString("ADDRESS_1")
+
+                        )
+        );
+	}
+
+	@Override
+	public List<PartyContact> findByAddressId(Long addressId) {
+		return jdbcTemplate.query(
+                "select * from T_PARTY_CONTACT where ADDRESS_ID=" + addressId,
+                (rs, rowNum) ->
+                        new PartyContact(
+                        		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
+                        		rs.getString("NAME"), rs.getString("CERTI_CODE"), rs.getString("MOBILE_TEL")
+                        				, rs.getString("EMAIL"), rs.getLong("ADDRESS_ID"), rs.getString("ADDRESS_1")
+
+                        )
+        );
+	}
 }

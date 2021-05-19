@@ -52,5 +52,30 @@ public class PartyContactController {
 		return contactList;
 	}
 
+	@GetMapping(path = "/search", params = { "listId" })
+	@ResponseBody
+	public List<PartyContact> findPartyContactsByListId(Long listId){
+		logger.info(">>>>PartyContactController, search by listId={}", listId);
+		List<PartyContact> contactList =  partyContactService.getPartyContactsByListId(listId);
+		logger.info(">>>>contactList, size={}", contactList.size());
+		return contactList;
+	}
 	
+	@GetMapping(path = "/search", params = { "certiCode" })
+	@ResponseBody
+	public List<PartyContact> findPartyContactsByCertiCode(String certiCode){
+		logger.info(">>>>PartyContactController, search by certiCode={}", certiCode);
+		List<PartyContact> contactList =  partyContactService.getPartyContactsByCertiCode(certiCode);
+		logger.info(">>>>contactList, size={}", contactList.size());
+		return contactList;
+	}
+	
+	@GetMapping(path = "/search", params = { "addressId" })
+	@ResponseBody
+	public List<PartyContact> findPartyContactsByAddressId(Long addressId){
+		logger.info(">>>>PartyContactController, search by addressId={}", addressId);
+		List<PartyContact> contactList =  partyContactService.getPartyContactsByAddressId(addressId);
+		logger.info(">>>>contactList, size={}", contactList.size());
+		return contactList;
+	}
 }

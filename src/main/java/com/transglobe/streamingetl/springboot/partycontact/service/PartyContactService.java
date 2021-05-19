@@ -39,4 +39,18 @@ public class PartyContactService {
 		return partyContactRepository.findByMobileTel(mobileTel);
 	}
 	
+	public List<PartyContact> getPartyContactsByListId(Long listId){
+		logger.info(">>>>PartyContactService, search by listId={}", listId);
+		return partyContactRepository.findByListId(listId);
+	}
+	
+	public List<PartyContact> getPartyContactsByCertiCode(String certiCode){
+		logger.info(">>>>PartyContactService, search by certiCode={}", certiCode);
+		return partyContactRepository.findByCertiCode(certiCode);
+	}
+	
+	public List<PartyContact> getPartyContactsByAddressId(Long addressId){
+		logger.info(">>>>PartyContactService, search by addressId={}", addressId);
+		return partyContactRepository.findByAddressId(addressId);
+	}
 }
