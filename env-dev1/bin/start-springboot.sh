@@ -1,0 +1,1 @@
+java -Dspring.profiles.active=dev1 -jar ../../target/springboot-partycontact-1.0.jar

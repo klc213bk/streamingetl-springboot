@@ -1,0 +1,1 @@
+java -Dspring.profiles.active=uat -jar ../../target/springboot-partycontact-1.0.jar
