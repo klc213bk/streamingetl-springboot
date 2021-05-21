@@ -2,9 +2,7 @@
 
 ./mvnw clean package
 
-java -jar target/springboot-partycontact-1.0.jar
-
-java -Dspring.profiles.active=dev1 -jar target/springboot-partycontact-1.0.jar
+./start-spring-boot.sh
 
 http://localhost:8080/partycontact/v1.0/search?email=testdata@xxx.com
 
