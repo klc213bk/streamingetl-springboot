@@ -1,8 +1,12 @@
 package com.transglobe.streamingetl.springboot.partycontact.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transglobe.streamingetl.springboot.partycontact.model.PartyContact;
+import com.transglobe.streamingetl.springboot.partycontact.model.StreamingEtlHealth;
+import com.transglobe.streamingetl.springboot.partycontact.model.UpTime;
+import com.transglobe.streamingetl.springboot.partycontact.service.StreamingEtlHealthService;
 import com.transglobe.streamingetl.springboot.partycontact.service.PartyContactService;
 
 
@@ -24,6 +31,9 @@ public class PartyContactController {
 	
 	@Autowired
 	private PartyContactService partyContactService;
+	
+	@Autowired
+	private StreamingEtlHealthService streamingEtlHealthService;
 
 	@GetMapping(path = "/search", params = { "email" })
 	@ResponseBody
@@ -43,11 +53,11 @@ public class PartyContactController {
 		return contactList;
 	}
 	
-	@GetMapping(path = "/search", params = { "address" })
+	@GetMapping(path = "/search", params = { "address1" })
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByAddress(String address){
-		logger.info(">>>>PartyContactController, search by address={}", address);
-		List<PartyContact> contactList =  partyContactService.getPartyContactsByAddress(address);
+	public List<PartyContact> findPartyContactsByAddress(String address1){
+		logger.info(">>>>PartyContactController, search by address1={}", address1);
+		List<PartyContact> contactList =  partyContactService.getPartyContactsByAddress1(address1);
 		logger.info(">>>>contactList, size={}", contactList.size());
 		return contactList;
 	}
@@ -70,12 +80,44 @@ public class PartyContactController {
 		return contactList;
 	}
 	
-	@GetMapping(path = "/search", params = { "addressId" })
+	/**
+	 * http://localhost:8080/partycontact/v1.0/etlhealth?period=p0d0h10m
+	 * @return
+	 */
+	@GetMapping(path = "/etlhealth")
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByAddressId(Long addressId){
-		logger.info(">>>>PartyContactController, search by addressId={}", addressId);
-		List<PartyContact> contactList =  partyContactService.getPartyContactsByAddressId(addressId);
-		logger.info(">>>>contactList, size={}", contactList.size());
-		return contactList;
+	public List<StreamingEtlHealth> getHealthRecordsAfter(
+			@RequestParam(required = false) Integer days,
+			@RequestParam(required = false) Integer hours,
+			@RequestParam(required = false) Integer mins){
+		logger.info(">>>>PartyContactController, findStreamingEtlHealthForLastNDays by days={}, hours:{}, mins:{}", days, hours, mins);
+				
+		long currMillis = System.currentTimeMillis();
+		
+		long secs = 0L;
+		secs = (days == null)? 0 : days * 86400;
+		secs = secs + ((hours == null)? 0 : hours * 3600);
+		secs = secs + ((mins == null)? 0 : mins * 60);
+		
+		long lastMillis = currMillis - secs * 1000;
+		System.out.println("lastMillis:" + lastMillis);
+		
+		List<StreamingEtlHealth> list =  streamingEtlHealthService.getHealthRecordsAfter(lastMillis);
+		return list;
+	}
+	
+
+	@GetMapping(path = "/upTime")
+	@ResponseBody
+	public UpTime findUpTime(){
+		logger.info(">>>>PartyContactController, find up time");
+		UpTime upTime = null;
+		try {
+			upTime = streamingEtlHealthService.getUpTime();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return upTime;
 	}
 }

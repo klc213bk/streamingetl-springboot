@@ -10,7 +10,7 @@ public interface PartyContactRepository {
     
     List<PartyContact> findByMobileTel(String mobileTel);
     
-    List<PartyContact> findByAddress(String address);
+    List<PartyContact> findByAddress1(String address1);
     
     List<PartyContact> findByListId(Long listId);
     

@@ -49,12 +49,12 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
 	}
 
 	@Override
-	public List<PartyContact> findByAddress(String address) {
+	public List<PartyContact> findByAddress1(String address1) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("address", "%" + address + "%");
+        mapSqlParameterSource.addValue("address1", "%" + address1 + "%");
 
         return namedParameterJdbcTemplate.query(
-                "select * from T_PARTY_CONTACT where ADDRESS_1 like :address",
+                "select * from T_PARTY_CONTACT where ADDRESS_1 like :address1",
                 mapSqlParameterSource,
                 (rs, rowNum) ->
                 new PartyContact(
