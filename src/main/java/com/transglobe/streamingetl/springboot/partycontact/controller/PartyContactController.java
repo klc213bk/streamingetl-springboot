@@ -80,10 +80,7 @@ public class PartyContactController {
 		return contactList;
 	}
 	
-	/**
-	 * http://localhost:8080/partycontact/v1.0/etlhealth?period=p0d0h10m
-	 * @return
-	 */
+
 	@GetMapping(path = "/etlhealth")
 	@ResponseBody
 	public List<StreamingEtlHealth> getHealthRecordsAfter(

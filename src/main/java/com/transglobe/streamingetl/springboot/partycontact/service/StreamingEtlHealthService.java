@@ -1,6 +1,9 @@
 package com.transglobe.streamingetl.springboot.partycontact.service;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,11 +27,12 @@ public class StreamingEtlHealthService {
 		StreamingEtlHealth health1st = streamingEtlHealthRepository.get1stRecord();
 		StreamingEtlHealth healthLast = streamingEtlHealthRepository.getLastRecord();
 		
-		Duration duration = Duration.between(health1st.getCdcTime().toLocalDateTime(), healthLast.getCdcTime().toLocalDateTime());
 		
+		Duration duration = Duration.between(health1st.getConsumerTime().toLocalDateTime(), healthLast.getConsumerTime().toLocalDateTime());
+			
 		UpTime upTime = new UpTime();
-		upTime.setStartTime(health1st.getCdcTime().toString());
-		upTime.setLastTime(healthLast.getCdcTime().toString());
+		upTime.setStartTime(health1st.getConsumerTime().toString());
+		upTime.setLastTime(healthLast.getConsumerTime().toString());
 		upTime.setDuration(duration.toString());
 		
 		return upTime;
