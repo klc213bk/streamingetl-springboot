@@ -2,6 +2,7 @@ package com.transglobe.streamingetl.springboot.partycontact.repository;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -22,8 +23,9 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
 	
 	@Override
 	public List<PartyContact> findByEmail(String email) {
+		String lowerEmail = StringUtils.isBlank(email)? "" : StringUtils.lowerCase(email);
 		return jdbcTemplate.query(
-                "select * from T_PARTY_CONTACT where EMAIL='" + email + "'",
+                "select * from T_PARTY_CONTACT where lower(EMAIL)='" + lowerEmail + "'",
                 (rs, rowNum) ->
                         new PartyContact(
                         		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
@@ -53,9 +55,8 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("address1", "%" + address1 + "%");
 
-        return namedParameterJdbcTemplate.query(
-                "select * from T_PARTY_CONTACT where ADDRESS_1 like :address1",
-                mapSqlParameterSource,
+        return jdbcTemplate.query(
+                "select * from T_PARTY_CONTACT where ADDRESS_1 ='" + address1 + "'",
                 (rs, rowNum) ->
                 new PartyContact(
                 		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
@@ -65,6 +66,23 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
                 )
         );
 	}
+//	@Override
+//	public List<PartyContact> findByAddress1(String address1) {
+//		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+//        mapSqlParameterSource.addValue("address1", "%" + address1 + "%");
+//
+//        return namedParameterJdbcTemplate.query(
+//                "select * from T_PARTY_CONTACT where ADDRESS_1 like :address1",
+//                mapSqlParameterSource,
+//                (rs, rowNum) ->
+//                new PartyContact(
+//                		rs.getInt("ROLE_TYPE"), rs.getLong("LIST_ID"), rs.getLong("POLICY_ID"), 
+//                		rs.getString("NAME"), rs.getString("CERTI_CODE"), rs.getString("MOBILE_TEL")
+//                				, rs.getString("EMAIL"), rs.getLong("ADDRESS_ID"), rs.getString("ADDRESS_1")
+//
+//                )
+//        );
+//	}
 
 	@Override
 	public List<PartyContact> findByListId(Long listId) {
