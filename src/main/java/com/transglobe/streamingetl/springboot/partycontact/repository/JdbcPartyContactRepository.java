@@ -52,9 +52,6 @@ public class JdbcPartyContactRepository implements PartyContactRepository {
 
 	@Override
 	public List<PartyContact> findByAddress1(String address1) {
-		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("address1", "%" + address1 + "%");
-
         return jdbcTemplate.query(
                 "select * from T_PARTY_CONTACT where ADDRESS_1 ='" + address1 + "'",
                 (rs, rowNum) ->
