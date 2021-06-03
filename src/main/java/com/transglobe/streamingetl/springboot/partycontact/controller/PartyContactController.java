@@ -25,7 +25,7 @@ import com.transglobe.streamingetl.springboot.partycontact.service.PartyContactS
 
 
 @RestController
-@RequestMapping("/partycontact/v1.0")
+@RequestMapping("/partycontact/v1.0/search")
 public class PartyContactController {
 	static final Logger logger = LoggerFactory.getLogger(PartyContactController.class);
 	
@@ -35,27 +35,27 @@ public class PartyContactController {
 	@Autowired
 	private StreamingEtlHealthService streamingEtlHealthService;
 
-	@GetMapping(path = "/search", params = { "email" })
+	@GetMapping(value="/email/{email}")
 	@ResponseBody
-	public List<PartyContact> findPartyContacts(@RequestParam("email") String email){
+	public List<PartyContact> findPartyContactsByEmail(@PathVariable("email") String email){
 		logger.info(">>>>PartyContactController, search by email={}", email);
 		List<PartyContact> contactList = partyContactService.getPartyContactsByEmail(email);
 		logger.info(">>>>contactList, size={}", contactList.size());
 		return contactList;
 	}
 	
-	@GetMapping(path = "/search", params = { "mobileTel" })
+	@GetMapping(value="/mobileTel/{mobileTel}")
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByMobileTel(String mobileTel){
+	public List<PartyContact> findPartyContactsByMobileTel(@PathVariable("mobileTel") String mobileTel){
 		logger.info(">>>>PartyContactController, search by mobileTel={}", mobileTel);
 		List<PartyContact> contactList = partyContactService.getPartyContactsByMobileTel(mobileTel);
 		logger.info(">>>>contactList, size={}", contactList.size());
 		return contactList;
 	}
 	
-	@GetMapping(path = "/search", params = { "address1" })
+	@GetMapping(value="/address1/{address1}")
 	@ResponseBody
-	public List<PartyContact> findPartyContactsByAddress(String address1){
+	public List<PartyContact> findPartyContactsByAddress(@PathVariable("address1") String address1){
 		logger.info(">>>>PartyContactController, search by address1={}", address1);
 		List<PartyContact> contactList =  partyContactService.getPartyContactsByAddress1(address1);
 		logger.info(">>>>contactList, size={}", contactList.size());
